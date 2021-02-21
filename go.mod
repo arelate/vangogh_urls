@@ -1,6 +1,6 @@
 module github.com/arelate/vangogh_urls
 
-go 1.15
+go 1.16
 
 require (
 	github.com/arelate/gog_types v0.1.6-alpha
