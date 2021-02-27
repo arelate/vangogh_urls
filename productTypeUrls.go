@@ -53,3 +53,28 @@ func DstProductTypeUrl(pt vangogh_types.ProductType, mt gog_types.Media) (string
 		return "", fmt.Errorf("vangogh_urls: no local destination for %s", pt)
 	}
 }
+
+func Denylist(pt vangogh_types.ProductType) string {
+	switch pt {
+	case vangogh_types.Store:
+		fallthrough
+	case vangogh_types.StoreProducts:
+		fallthrough
+	case vangogh_types.Account:
+		fallthrough
+	case vangogh_types.AccountProducts:
+		fallthrough
+	case vangogh_types.Wishlist:
+		fallthrough
+	case vangogh_types.WishlistProducts:
+		fallthrough
+	case vangogh_types.Details:
+		fallthrough
+	case vangogh_types.ApiProductsV1:
+		fallthrough
+	case vangogh_types.ApiProductsV2:
+		return fmt.Sprintf("denylists/%s.txt", pt.String())
+	default:
+		return ""
+	}
+}
