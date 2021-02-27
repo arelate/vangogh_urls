@@ -20,8 +20,10 @@ func SrcProductTypeUrl(pt vangogh_types.ProductType) (ProductTypeUrl, error) {
 		return gog_urls.DefaultWishlistPage, nil
 	case vangogh_types.Details:
 		return gog_urls.Details, nil
-	case vangogh_types.ApiProducts:
-		return gog_urls.ApiProduct, nil
+	case vangogh_types.ApiProductsV1:
+		return gog_urls.ApiProductV1, nil
+	case vangogh_types.ApiProductsV2:
+		return gog_urls.ApiProductV2, nil
 	default:
 		return nil, fmt.Errorf("vangogh_urls: no remote source for %s\n", pt)
 	}
@@ -43,7 +45,9 @@ func DstProductTypeUrl(pt vangogh_types.ProductType, mt gog_types.Media) (string
 		fallthrough
 	case vangogh_types.Details:
 		fallthrough
-	case vangogh_types.ApiProducts:
+	case vangogh_types.ApiProductsV1:
+		fallthrough
+	case vangogh_types.ApiProductsV2:
 		return fmt.Sprintf("metadata/%s/%s", pt.String(), mt.String()), nil
 	default:
 		return "", fmt.Errorf("vangogh_urls: no local destination for %s", pt)
