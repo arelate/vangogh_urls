@@ -6,11 +6,22 @@ import (
 	"github.com/arelate/gog_urls"
 	"github.com/arelate/vangogh_types"
 	"net/url"
+	"path"
 )
 
 type ProductTypeUrl func(string, gog_types.Media) *url.URL
 
+const (
+	metadataDst  = "metadata"
+	denylistsDst = "_denylists"
+	txtExt       = ".txt"
+)
+
 func SrcProductTypeUrl(pt vangogh_types.ProductType) (ProductTypeUrl, error) {
+	if !vangogh_types.ValidProductType(pt) {
+		return nil, fmt.Errorf("vangogh_urls: no remote source for %s\n", pt)
+	}
+
 	switch pt {
 	case vangogh_types.Store:
 		return gog_urls.DefaultProductsPage, nil
@@ -30,51 +41,20 @@ func SrcProductTypeUrl(pt vangogh_types.ProductType) (ProductTypeUrl, error) {
 }
 
 func DstProductTypeUrl(pt vangogh_types.ProductType, mt gog_types.Media) (string, error) {
-	switch pt {
-	case vangogh_types.Store:
-		fallthrough
-	case vangogh_types.StoreProducts:
-		fallthrough
-	case vangogh_types.Account:
-		fallthrough
-	case vangogh_types.AccountProducts:
-		fallthrough
-	case vangogh_types.Wishlist:
-		fallthrough
-	case vangogh_types.WishlistProducts:
-		fallthrough
-	case vangogh_types.Details:
-		fallthrough
-	case vangogh_types.ApiProductsV1:
-		fallthrough
-	case vangogh_types.ApiProductsV2:
-		return fmt.Sprintf("metadata/%s/%s", pt.String(), mt.String()), nil
-	default:
-		return "", fmt.Errorf("vangogh_urls: no local destination for %s", pt)
+	if !vangogh_types.ValidProductType(pt) {
+		return "", fmt.Errorf("vangogh_urls: no local destination for product type %s", pt)
 	}
+	if !gog_types.ValidMedia(mt) {
+		return "", fmt.Errorf("vangogh_urls: no local destination for media %s", pt)
+	}
+
+	return path.Join(metadataDst, pt.String(), mt.String()), nil
 }
 
-func Denylist(pt vangogh_types.ProductType) string {
-	switch pt {
-	case vangogh_types.Store:
-		fallthrough
-	case vangogh_types.StoreProducts:
-		fallthrough
-	case vangogh_types.Account:
-		fallthrough
-	case vangogh_types.AccountProducts:
-		fallthrough
-	case vangogh_types.Wishlist:
-		fallthrough
-	case vangogh_types.WishlistProducts:
-		fallthrough
-	case vangogh_types.Details:
-		fallthrough
-	case vangogh_types.ApiProductsV1:
-		fallthrough
-	case vangogh_types.ApiProductsV2:
-		return fmt.Sprintf("denylists/%s.txt", pt.String())
-	default:
+func DenylistUrl(pt vangogh_types.ProductType) string {
+	if !vangogh_types.ValidProductType(pt) {
 		return ""
 	}
+
+	return path.Join(metadataDst, denylistsDst, pt.String()+txtExt)
 }
