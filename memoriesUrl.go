@@ -9,16 +9,15 @@ import (
 
 const (
 	memoriesDst = "_memories"
-	gobExt      = ".gob"
 )
 
-func MemoriesUrl(pt vangogh_types.ProductType, mt gog_types.Media, property string) (string, error) {
+func MemoriesUrl(pt vangogh_types.ProductType, mt gog_types.Media) (string, error) {
 	if !vangogh_types.ValidProductType(pt) {
-		return "", fmt.Errorf("vangogh_urls: no memories destination for product type %s", pt)
+		return "", fmt.Errorf("vangogh_urls: memories not supported for product type %s", pt)
 	}
 	if !gog_types.ValidMedia(mt) {
-		return "", fmt.Errorf("vangogh_urls: no memories destination for media %s", pt)
+		return "", fmt.Errorf("vangogh_urls: memories not supported for media %s", pt)
 	}
 
-	return path.Join(metadataDst, memoriesDst, fmt.Sprintf("%s-%s-%s%s", pt, mt, property, gobExt)), nil
+	return path.Join(metadataDst, memoriesDst, pt.String(), mt.String()), nil
 }
