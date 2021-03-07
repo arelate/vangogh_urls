@@ -12,8 +12,8 @@ import (
 type ProductTypeUrl func(string, gog_types.Media) *url.URL
 
 const (
-	metadataDst  = "metadata"
-	denylistsDst = "_denylists"
+	metadataDir  = "metadata"
+	denylistsDir = "_denylists"
 	txtExt       = ".txt"
 )
 
@@ -48,7 +48,7 @@ func DstProductTypeUrl(pt vangogh_types.ProductType, mt gog_types.Media) (string
 		return "", fmt.Errorf("vangogh_urls: no local destination for media %s", pt)
 	}
 
-	return path.Join(metadataDst, pt.String(), mt.String()), nil
+	return path.Join(metadataDir, pt.String(), mt.String()), nil
 }
 
 func DenylistUrl(pt vangogh_types.ProductType) string {
@@ -56,5 +56,5 @@ func DenylistUrl(pt vangogh_types.ProductType) string {
 		return ""
 	}
 
-	return path.Join(metadataDst, denylistsDst, pt.String()+txtExt)
+	return path.Join(metadataDir, denylistsDir, pt.String()+txtExt)
 }

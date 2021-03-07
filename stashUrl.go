@@ -8,8 +8,13 @@ import (
 )
 
 const (
-	stashDst = "_stash"
+	stashDir          = "_stash"
+	distilledStashDir = "_distilled"
 )
+
+func DistilledStashUrl() string {
+	return path.Join(metadataDir, stashDir, distilledStashDir)
+}
 
 func ProductTypeStashUrl(pt vangogh_types.ProductType, mt gog_types.Media) (string, error) {
 	if !vangogh_types.ValidProductType(pt) {
@@ -19,5 +24,5 @@ func ProductTypeStashUrl(pt vangogh_types.ProductType, mt gog_types.Media) (stri
 		return "", fmt.Errorf("vangogh_urls: can't stash invalid media %s", pt)
 	}
 
-	return path.Join(metadataDst, stashDst, pt.String(), mt.String()), nil
+	return path.Join(metadataDir, stashDir, pt.String(), mt.String()), nil
 }
