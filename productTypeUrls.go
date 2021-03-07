@@ -23,11 +23,11 @@ func SrcProductTypeUrl(pt vangogh_types.ProductType) (ProductTypeUrl, error) {
 	}
 
 	switch pt {
-	case vangogh_types.Store:
+	case vangogh_types.StorePage:
 		return gog_urls.DefaultProductsPage, nil
-	case vangogh_types.Account:
+	case vangogh_types.AccountPage:
 		return gog_urls.DefaultAccountProductsPage, nil
-	case vangogh_types.Wishlist:
+	case vangogh_types.WishlistPage:
 		return gog_urls.DefaultWishlistPage, nil
 	case vangogh_types.Details:
 		return gog_urls.Details, nil
