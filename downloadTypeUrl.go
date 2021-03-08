@@ -11,5 +11,14 @@ func DstDownloadTypeUrl(dt vangogh_types.DownloadType) (string, error) {
 		return "", fmt.Errorf("vangogh_urls: no local destination for %s", dt)
 	}
 
-	return path.Join("images", dt.String()), nil
+	dstRootDir := ""
+
+	switch dt {
+	case vangogh_types.Image:
+		fallthrough
+	case vangogh_types.BoxArt:
+		dstRootDir = "images"
+	}
+
+	return path.Join(dstRootDir, dt.String()), nil
 }
