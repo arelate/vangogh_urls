@@ -17,6 +17,14 @@ func DstDownloadTypeUrl(dt vangogh_types.DownloadType) (string, error) {
 	case vangogh_types.Image:
 		fallthrough
 	case vangogh_types.BoxArt:
+		fallthrough
+	case vangogh_types.BackgroundImage:
+		fallthrough
+	case vangogh_types.GalaxyBackgroundImage:
+		fallthrough
+	case vangogh_types.Logo:
+		fallthrough
+	case vangogh_types.Icon:
 		dstRootDir = "images"
 	}
 
