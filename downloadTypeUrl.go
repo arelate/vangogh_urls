@@ -6,27 +6,19 @@ import (
 	"path"
 )
 
+var downloadTypeRootDirs = map[vangogh_types.DownloadType]string{
+	vangogh_types.Image:                 "images",
+	vangogh_types.BoxArt:                "images",
+	vangogh_types.BackgroundImage:       "images",
+	vangogh_types.GalaxyBackgroundImage: "images",
+	vangogh_types.Logo:                  "images",
+	vangogh_types.Icon:                  "images",
+}
+
 func DstDownloadTypeUrl(dt vangogh_types.DownloadType) (string, error) {
 	if !vangogh_types.ValidDownloadType(dt) {
 		return "", fmt.Errorf("vangogh_urls: no local destination for %s", dt)
 	}
 
-	dstRootDir := ""
-
-	switch dt {
-	case vangogh_types.Image:
-		fallthrough
-	case vangogh_types.BoxArt:
-		fallthrough
-	case vangogh_types.BackgroundImage:
-		fallthrough
-	case vangogh_types.GalaxyBackgroundImage:
-		fallthrough
-	case vangogh_types.Logo:
-		fallthrough
-	case vangogh_types.Icon:
-		dstRootDir = "images"
-	}
-
-	return path.Join(dstRootDir, dt.String()), nil
+	return path.Join(downloadTypeRootDirs[dt], dt.String()), nil
 }

@@ -17,27 +17,26 @@ const (
 	txtExt       = ".txt"
 )
 
-func SrcProductTypeUrl(pt vangogh_types.ProductType) (ProductTypeUrl, error) {
+var productTypeUrls = map[vangogh_types.ProductType]ProductTypeUrl{
+	vangogh_types.StorePage:     gog_urls.DefaultProductsPage,
+	vangogh_types.AccountPage:   gog_urls.DefaultAccountProductsPage,
+	vangogh_types.WishlistPage:  gog_urls.DefaultWishlistPage,
+	vangogh_types.Details:       gog_urls.Details,
+	vangogh_types.ApiProductsV1: gog_urls.ApiProductV1,
+	vangogh_types.ApiProductsV2: gog_urls.ApiProductV2,
+}
+
+func SrcProductTypeUrl(pt vangogh_types.ProductType) (ptUrl ProductTypeUrl, err error) {
 	if !vangogh_types.ValidProductType(pt) {
 		return nil, fmt.Errorf("vangogh_urls: no remote source for %s\n", pt)
 	}
 
-	switch pt {
-	case vangogh_types.StorePage:
-		return gog_urls.DefaultProductsPage, nil
-	case vangogh_types.AccountPage:
-		return gog_urls.DefaultAccountProductsPage, nil
-	case vangogh_types.WishlistPage:
-		return gog_urls.DefaultWishlistPage, nil
-	case vangogh_types.Details:
-		return gog_urls.Details, nil
-	case vangogh_types.ApiProductsV1:
-		return gog_urls.ApiProductV1, nil
-	case vangogh_types.ApiProductsV2:
-		return gog_urls.ApiProductV2, nil
-	default:
-		return nil, fmt.Errorf("vangogh_urls: no remote source for %s\n", pt)
+	ptUrl, ok := productTypeUrls[pt]
+	if !ok {
+		err = fmt.Errorf("vangogh_urls: no remote source for %s\n", pt)
 	}
+
+	return ptUrl, err
 }
 
 func DstProductTypeUrl(pt vangogh_types.ProductType, mt gog_types.Media) (string, error) {
