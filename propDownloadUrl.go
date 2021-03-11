@@ -26,6 +26,8 @@ func PropDownloadUrl(property string, dt vangogh_types.DownloadType) ([]*url.URL
 		fallthrough
 	case vangogh_types.Icon:
 		getUrl = gog_urls.Image
+	case vangogh_types.Screenshots:
+		getUrls = gog_urls.Screenshots
 	}
 
 	if getUrl == nil && getUrls == nil {

@@ -6,13 +6,16 @@ import (
 	"path"
 )
 
+const imagesDir = "images"
+
 var downloadTypeRootDirs = map[vangogh_types.DownloadType]string{
-	vangogh_types.Image:                 "images",
-	vangogh_types.BoxArt:                "images",
-	vangogh_types.BackgroundImage:       "images",
-	vangogh_types.GalaxyBackgroundImage: "images",
-	vangogh_types.Logo:                  "images",
-	vangogh_types.Icon:                  "images",
+	vangogh_types.Image:                 imagesDir,
+	vangogh_types.BoxArt:                imagesDir,
+	vangogh_types.BackgroundImage:       imagesDir,
+	vangogh_types.GalaxyBackgroundImage: imagesDir,
+	vangogh_types.Logo:                  imagesDir,
+	vangogh_types.Icon:                  imagesDir,
+	vangogh_types.Screenshots:           imagesDir,
 }
 
 func DstDownloadTypeUrl(dt vangogh_types.DownloadType) (string, error) {
