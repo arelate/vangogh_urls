@@ -7,11 +7,11 @@ import (
 	"net/url"
 )
 
-func PropDownloadUrl(properties []string, dt vangogh_types.DownloadType) ([]*url.URL, error) {
+func PropDownloadUrl(property string, dt vangogh_types.DownloadType) ([]*url.URL, error) {
 	urls := make([]*url.URL, 0)
 
 	var getUrl func(string) (*url.URL, error)
-	var getUrls func([]string) ([]*url.URL, error)
+	var getUrls func(string) ([]*url.URL, error)
 
 	switch dt {
 	case vangogh_types.Image:
@@ -32,8 +32,8 @@ func PropDownloadUrl(properties []string, dt vangogh_types.DownloadType) ([]*url
 		return urls, fmt.Errorf("vangogh_urls: no download urls for %s", dt)
 	}
 
-	if getUrl != nil && len(properties) > 0 {
-		singleUrl, err := getUrl(properties[0])
+	if getUrl != nil {
+		singleUrl, err := getUrl(property)
 		if err != nil {
 			return urls, err
 		}
@@ -41,7 +41,7 @@ func PropDownloadUrl(properties []string, dt vangogh_types.DownloadType) ([]*url
 	}
 
 	if getUrls != nil {
-		manyUrls, err := getUrls(properties)
+		manyUrls, err := getUrls(property)
 		if err != nil {
 			return urls, err
 		}
