@@ -5,13 +5,14 @@ import (
 	"github.com/arelate/gog_urls"
 	"github.com/arelate/vangogh_types"
 	"net/url"
+	"strings"
 )
 
 func PropDownloadUrl(property string, dt vangogh_types.DownloadType) ([]*url.URL, error) {
 	urls := make([]*url.URL, 0)
 
 	var getUrl func(string) (*url.URL, error)
-	var getUrls func(string) ([]*url.URL, error)
+	var getUrls func([]string) ([]*url.URL, error)
 
 	switch dt {
 	case vangogh_types.Image:
@@ -43,7 +44,7 @@ func PropDownloadUrl(property string, dt vangogh_types.DownloadType) ([]*url.URL
 	}
 
 	if getUrls != nil {
-		manyUrls, err := getUrls(property)
+		manyUrls, err := getUrls(strings.Split(property, ","))
 		if err != nil {
 			return urls, err
 		}
