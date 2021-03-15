@@ -8,20 +8,20 @@ import (
 	"strings"
 )
 
-func PropDownloadUrl(property string, dt vangogh_types.DownloadType) ([]*url.URL, error) {
+func PropImageUrl(property string, it vangogh_types.ImageType) ([]*url.URL, error) {
 	urls := make([]*url.URL, 0)
 
 	var getUrl func(string) (*url.URL, error)
 	var getUrls func([]string) ([]*url.URL, error)
 
-	switch dt {
+	switch it {
 	case vangogh_types.Image:
 		fallthrough
 	case vangogh_types.BoxArt:
 		fallthrough
-	case vangogh_types.BackgroundImage:
+	case vangogh_types.Background:
 		fallthrough
-	case vangogh_types.GalaxyBackgroundImage:
+	case vangogh_types.GalaxyBackground:
 		fallthrough
 	case vangogh_types.Logo:
 		fallthrough
@@ -32,7 +32,7 @@ func PropDownloadUrl(property string, dt vangogh_types.DownloadType) ([]*url.URL
 	}
 
 	if getUrl == nil && getUrls == nil {
-		return urls, fmt.Errorf("vangogh_urls: no download urls for %s", dt)
+		return urls, fmt.Errorf("vangogh_urls: no download urls for %s", it)
 	}
 
 	if getUrl != nil {
