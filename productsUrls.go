@@ -26,7 +26,7 @@ var productTypeUrls = map[vangogh_types.ProductType]ProductTypeUrl{
 	vangogh_types.ApiProductsV2: gog_urls.ApiProductV2,
 }
 
-func SrcProductTypeUrl(pt vangogh_types.ProductType) (ptUrl ProductTypeUrl, err error) {
+func RemoteProductsUrl(pt vangogh_types.ProductType) (ptUrl ProductTypeUrl, err error) {
 	if !vangogh_types.ValidProductType(pt) {
 		return nil, fmt.Errorf("vangogh_urls: no remote source for %s\n", pt)
 	}
@@ -39,7 +39,7 @@ func SrcProductTypeUrl(pt vangogh_types.ProductType) (ptUrl ProductTypeUrl, err 
 	return ptUrl, err
 }
 
-func DstProductTypeUrl(pt vangogh_types.ProductType, mt gog_types.Media) (string, error) {
+func LocalProductsDir(pt vangogh_types.ProductType, mt gog_types.Media) (string, error) {
 	if !vangogh_types.ValidProductType(pt) {
 		return "", fmt.Errorf("vangogh_urls: no local destination for product type %s", pt)
 	}
@@ -50,7 +50,7 @@ func DstProductTypeUrl(pt vangogh_types.ProductType, mt gog_types.Media) (string
 	return path.Join(metadataDir, pt.String(), mt.String()), nil
 }
 
-func DenylistUrl(pt vangogh_types.ProductType) string {
+func Denylist(pt vangogh_types.ProductType) string {
 	if !vangogh_types.ValidProductType(pt) {
 		return ""
 	}

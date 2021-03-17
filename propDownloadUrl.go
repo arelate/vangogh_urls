@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func PropImageUrl(property string, it vangogh_types.ImageType) ([]*url.URL, error) {
+func PropImageUrls(property string, it vangogh_types.ImageType) ([]*url.URL, error) {
 	urls := make([]*url.URL, 0)
 
 	var getUrl func(string) (*url.URL, error)
