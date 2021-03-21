@@ -2,14 +2,14 @@ package vangogh_urls
 
 import (
 	"fmt"
-	"github.com/arelate/gog_types"
+	"github.com/arelate/gog_media"
 	"github.com/arelate/gog_urls"
 	"github.com/arelate/vangogh_types"
 	"net/url"
 	"path"
 )
 
-type ProductTypeUrl func(string, gog_types.Media) *url.URL
+type ProductTypeUrl func(string, gog_media.Media) *url.URL
 
 const (
 	metadataDir  = "metadata"
@@ -39,11 +39,11 @@ func RemoteProductsUrl(pt vangogh_types.ProductType) (ptUrl ProductTypeUrl, err 
 	return ptUrl, err
 }
 
-func LocalProductsDir(pt vangogh_types.ProductType, mt gog_types.Media) (string, error) {
+func LocalProductsDir(pt vangogh_types.ProductType, mt gog_media.Media) (string, error) {
 	if !vangogh_types.ValidProductType(pt) {
 		return "", fmt.Errorf("vangogh_urls: no local destination for product type %s", pt)
 	}
-	if !gog_types.ValidMedia(mt) {
+	if !gog_media.Valid(mt) {
 		return "", fmt.Errorf("vangogh_urls: no local destination for media %s", pt)
 	}
 
