@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/arelate/gog_media"
 	"github.com/arelate/gog_urls"
-	"github.com/arelate/vangogh_types"
+	"github.com/arelate/vangogh_products"
 	"net/url"
 	"path"
 )
@@ -17,17 +17,17 @@ const (
 	txtExt       = ".txt"
 )
 
-var productTypeUrls = map[vangogh_types.ProductType]ProductTypeUrl{
-	vangogh_types.StorePage:     gog_urls.DefaultProductsPage,
-	vangogh_types.AccountPage:   gog_urls.DefaultAccountProductsPage,
-	vangogh_types.WishlistPage:  gog_urls.DefaultWishlistPage,
-	vangogh_types.Details:       gog_urls.Details,
-	vangogh_types.ApiProductsV1: gog_urls.ApiProductV1,
-	vangogh_types.ApiProductsV2: gog_urls.ApiProductV2,
+var productTypeUrls = map[vangogh_products.ProductType]ProductTypeUrl{
+	vangogh_products.StorePage:     gog_urls.DefaultProductsPage,
+	vangogh_products.AccountPage:   gog_urls.DefaultAccountProductsPage,
+	vangogh_products.WishlistPage:  gog_urls.DefaultWishlistPage,
+	vangogh_products.Details:       gog_urls.Details,
+	vangogh_products.ApiProductsV1: gog_urls.ApiProductV1,
+	vangogh_products.ApiProductsV2: gog_urls.ApiProductV2,
 }
 
-func RemoteProductsUrl(pt vangogh_types.ProductType) (ptUrl ProductTypeUrl, err error) {
-	if !vangogh_types.ValidProductType(pt) {
+func RemoteProductsUrl(pt vangogh_products.ProductType) (ptUrl ProductTypeUrl, err error) {
+	if !vangogh_products.Valid(pt) {
 		return nil, fmt.Errorf("vangogh_urls: no remote source for %s\n", pt)
 	}
 
@@ -39,8 +39,8 @@ func RemoteProductsUrl(pt vangogh_types.ProductType) (ptUrl ProductTypeUrl, err 
 	return ptUrl, err
 }
 
-func LocalProductsDir(pt vangogh_types.ProductType, mt gog_media.Media) (string, error) {
-	if !vangogh_types.ValidProductType(pt) {
+func LocalProductsDir(pt vangogh_products.ProductType, mt gog_media.Media) (string, error) {
+	if !vangogh_products.Valid(pt) {
 		return "", fmt.Errorf("vangogh_urls: no local destination for product type %s", pt)
 	}
 	if !gog_media.Valid(mt) {
@@ -50,8 +50,8 @@ func LocalProductsDir(pt vangogh_types.ProductType, mt gog_media.Media) (string,
 	return path.Join(metadataDir, pt.String(), mt.String()), nil
 }
 
-func Denylist(pt vangogh_types.ProductType) string {
-	if !vangogh_types.ValidProductType(pt) {
+func Denylist(pt vangogh_products.ProductType) string {
+	if !vangogh_products.Valid(pt) {
 		return ""
 	}
 

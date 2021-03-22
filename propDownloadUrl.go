@@ -3,31 +3,31 @@ package vangogh_urls
 import (
 	"fmt"
 	"github.com/arelate/gog_urls"
-	"github.com/arelate/vangogh_types"
+	"github.com/arelate/vangogh_images"
 	"net/url"
 	"strings"
 )
 
-func PropImageUrls(property string, it vangogh_types.ImageType) ([]*url.URL, error) {
+func PropImageUrls(property string, it vangogh_images.ImageType) ([]*url.URL, error) {
 	urls := make([]*url.URL, 0)
 
 	var getUrl func(string) (*url.URL, error)
 	var getUrls func([]string) ([]*url.URL, error)
 
 	switch it {
-	case vangogh_types.Image:
+	case vangogh_images.Image:
 		fallthrough
-	case vangogh_types.BoxArt:
+	case vangogh_images.BoxArt:
 		fallthrough
-	case vangogh_types.Background:
+	case vangogh_images.Background:
 		fallthrough
-	case vangogh_types.GalaxyBackground:
+	case vangogh_images.GalaxyBackground:
 		fallthrough
-	case vangogh_types.Logo:
+	case vangogh_images.Logo:
 		fallthrough
-	case vangogh_types.Icon:
+	case vangogh_images.Icon:
 		getUrl = gog_urls.Image
-	case vangogh_types.Screenshots:
+	case vangogh_images.Screenshots:
 		getUrls = gog_urls.Screenshots
 	}
 
