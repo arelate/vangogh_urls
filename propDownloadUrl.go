@@ -5,10 +5,9 @@ import (
 	"github.com/arelate/gog_urls"
 	"github.com/arelate/vangogh_images"
 	"net/url"
-	"strings"
 )
 
-func PropImageUrls(property string, it vangogh_images.ImageType) ([]*url.URL, error) {
+func PropImageUrls(propValue interface{}, it vangogh_images.ImageType) ([]*url.URL, error) {
 	urls := make([]*url.URL, 0)
 
 	var getUrl func(string) (*url.URL, error)
@@ -36,7 +35,7 @@ func PropImageUrls(property string, it vangogh_images.ImageType) ([]*url.URL, er
 	}
 
 	if getUrl != nil {
-		singleUrl, err := getUrl(property)
+		singleUrl, err := getUrl(propValue.(string))
 		if err != nil {
 			return urls, err
 		}
@@ -44,7 +43,7 @@ func PropImageUrls(property string, it vangogh_images.ImageType) ([]*url.URL, er
 	}
 
 	if getUrls != nil {
-		manyUrls, err := getUrls(strings.Split(property, ","))
+		manyUrls, err := getUrls(propValue.([]string))
 		if err != nil {
 			return urls, err
 		}
