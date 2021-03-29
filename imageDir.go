@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-const imagesDir = "images"
+const RootImagesDir = "images"
 
 func ImageDir(imageId string) (string, error) {
 	if imageId == "" {
@@ -18,5 +18,5 @@ func ImageDir(imageId string) (string, error) {
 
 	imageId = strings.TrimPrefix(imageId, "/")
 
-	return path.Join(imagesDir, imageId[0:2]), nil
+	return path.Join(RootImagesDir, imageId[0:2]), nil
 }
