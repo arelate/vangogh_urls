@@ -18,8 +18,8 @@ const (
 )
 
 var productTypeUrls = map[vangogh_products.ProductType]ProductTypeUrl{
-	vangogh_products.StorePage:     gog_urls.DefaultProductsPage,
-	vangogh_products.AccountPage:   gog_urls.DefaultAccountProductsPage,
+	vangogh_products.StorePage:     gog_urls.DefaultStorePage,
+	vangogh_products.AccountPage:   gog_urls.DefaultAccountPage,
 	vangogh_products.WishlistPage:  gog_urls.DefaultWishlistPage,
 	vangogh_products.Details:       gog_urls.Details,
 	vangogh_products.ApiProductsV1: gog_urls.ApiProductV1,

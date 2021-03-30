@@ -12,6 +12,7 @@ require (
 replace (
 	github.com/arelate/gog_media => ../gog_media
 	github.com/arelate/gog_urls => ../gog_urls
+	github.com/arelate/gog_types => ../gog_types
 	github.com/arelate/vangogh_images => ../vangogh_images
 	github.com/arelate/vangogh_products => ../vangogh_products
 )
