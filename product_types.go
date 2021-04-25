@@ -24,6 +24,7 @@ var productTypeUrls = map[vangogh_products.ProductType]ProductTypeUrl{
 	vangogh_products.Details:       gog_urls.Details,
 	vangogh_products.ApiProductsV1: gog_urls.ApiProductV1,
 	vangogh_products.ApiProductsV2: gog_urls.ApiProductV2,
+	vangogh_products.Licences:      gog_urls.DefaultLicences,
 }
 
 func RemoteProductsUrl(pt vangogh_products.ProductType) (ptUrl ProductTypeUrl, err error) {

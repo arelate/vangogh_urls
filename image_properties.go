@@ -13,18 +13,20 @@ func PropImageUrls(imageIds []string, it vangogh_images.ImageType) ([]*url.URL, 
 	var getUrl func(string) (*url.URL, error)
 
 	switch it {
-	case vangogh_images.Image:
+	case vangogh_images.Logo:
+		// transparency doesn't look right in .jpg variants
 		fallthrough
+	case vangogh_images.Icon:
+		// transparency doesn't look right in .jpg variants
+		getUrl = gog_urls.ImagePng
 	case vangogh_images.BoxArt:
+		fallthrough
+	case vangogh_images.Image:
 		fallthrough
 	case vangogh_images.Background:
 		fallthrough
 	case vangogh_images.GalaxyBackground:
 		fallthrough
-	case vangogh_images.Logo:
-		fallthrough
-	case vangogh_images.Icon:
-		getUrl = gog_urls.Image
 	case vangogh_images.Screenshots:
 		getUrl = gog_urls.ImageJpg
 	}
