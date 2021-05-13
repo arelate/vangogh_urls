@@ -13,7 +13,7 @@ type ProductTypeUrl func(string, gog_media.Media) *url.URL
 
 const (
 	metadataDir  = "metadata"
-	denylistsDir = "_denylists"
+	skipListsDir = "_skiplists"
 	txtExt       = ".txt"
 )
 
@@ -25,6 +25,7 @@ var productTypeUrls = map[vangogh_products.ProductType]ProductTypeUrl{
 	vangogh_products.ApiProductsV1: gog_urls.ApiProductV1,
 	vangogh_products.ApiProductsV2: gog_urls.ApiProductV2,
 	vangogh_products.Licences:      gog_urls.DefaultLicences,
+	vangogh_products.OrderPage:     gog_urls.DefaultOrdersPage,
 }
 
 func RemoteProductsUrl(pt vangogh_products.ProductType) (ptUrl ProductTypeUrl, err error) {
@@ -56,5 +57,5 @@ func Denylist(pt vangogh_products.ProductType) string {
 		return ""
 	}
 
-	return path.Join(metadataDir, denylistsDir, pt.String()+txtExt)
+	return path.Join(metadataDir, skipListsDir, pt.String()+txtExt)
 }
