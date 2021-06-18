@@ -7,13 +7,21 @@ import (
 	"strings"
 )
 
+func id(p string) string {
+	_, idFile := path.Split(p)
+	if !strings.HasSuffix(idFile, ".download") {
+		return strings.TrimSuffix(idFile, path.Ext(idFile))
+	}
+	return ""
+}
+
 func LocalImageIds() (imageIds map[string]bool, err error) {
 	imageIds = make(map[string]bool, 0)
 
 	err = filepath.WalkDir(RootImagesDir, func(p string, _ fs.DirEntry, err error) error {
-		_, imageIdFile := path.Split(p)
-		if !strings.HasSuffix(imageIdFile, ".download") {
-			imageIds[strings.TrimSuffix(imageIdFile, path.Ext(imageIdFile))] = true
+		imageId := id(p)
+		if imageId != "" {
+			imageIds[imageId] = true
 		}
 		return err
 	})
